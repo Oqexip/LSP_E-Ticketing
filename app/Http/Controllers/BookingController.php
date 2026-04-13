@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Booking;
 use App\Models\Schedule;
+use App\Models\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -28,27 +29,35 @@ class BookingController extends Controller
         // Hitung total harga
         $total_price = $request->total_seats * $schedule->price;
 
-        // Simpan ke tabel Bookings
-        Booking::create([
+        // Simpan ke tabel Bookings (status Pending, menunggu pembayaran)
+        $booking = Booking::create([
             'user_id' => Auth::id(),
             'schedule_id' => $schedule->id,
             'total_seats' => $request->total_seats,
             'total_price' => $total_price,
-            'status' => 'Lunas'
+            'status' => 'Pending'
         ]);
 
         // Kurangi stok di tabel schedules
         $schedule->decrement('stock', $request->total_seats);
 
-        // Kembali ke dashboard
-        return redirect('/dashboard')->with('success', 'Pemesanan berhasil! ' . $request->total_seats . ' kursi untuk ' . $schedule->plane_name . ' telah dipesan.');
+        // Buat transaction otomatis
+        Transaction::create([
+            'booking_id' => $booking->id,
+            'amount' => $total_price,
+            'status' => 'Pending',
+        ]);
+
+        // Redirect ke halaman pembayaran
+        return redirect()->route('transaction.show', $booking->transaction->id)
+            ->with('success', 'Pemesanan berhasil! Silakan lakukan pembayaran.');
     }
 
     // Menampilkan riwayat pesanan user yang sedang login
     public function history()
     {
         $orders = Booking::where('user_id', Auth::id())
-                        ->with('schedule') 
+                        ->with(['schedule', 'transaction']) 
                         ->latest()
                         ->get();
 
