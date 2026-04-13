@@ -84,7 +84,7 @@
         </aside>
 
         {{-- Main Content --}}
-        <main class="flex-1 lg:ml-64">
+        <main class="flex-1 lg:ml-64 min-w-0 overflow-hidden">
             {{-- Top Bar --}}
             <header class="sticky top-0 z-40 bg-white/80 backdrop-blur-xl border-b border-gray-200">
                 <div class="flex items-center justify-between px-6 py-4">
@@ -107,7 +107,7 @@
                             <p class="text-sm font-medium text-gray-900">{{ Auth::user()->name }}</p>
                             <p class="text-xs text-gray-500 capitalize">{{ Auth::user()->role }}</p>
                         </div>
-                        <div class="w-9 h-9 bg-gradient-to-br from-gray-700 to-gray-900 rounded-full flex items-center justify-center text-white font-semibold text-sm shadow-md">
+                        <div class="w-9 h-9 bg-gradient-to-br from-blue-600 to-blue-800 rounded-full flex items-center justify-center text-white font-semibold text-sm shadow-md">
                             {{ strtoupper(substr(Auth::user()->name, 0, 1)) }}
                         </div>
                     </div>

@@ -34,10 +34,13 @@
     {{-- Content --}}
     <div class="relative z-10 min-h-screen flex items-center justify-center p-4">
         <div class="w-full max-w-md">
-            {{-- Brand Logo --}}
+
+            {{-- Card --}}
+            <div class="glass-card p-8 shadow-xl shadow-gray-200/50">
+                {{-- Brand Logo --}}
             <div class="text-center mb-8">
                 <div class="inline-flex items-center gap-3 mb-3">
-                    <div class="w-12 h-12 bg-gradient-to-br from-blue-600 to-blue-600 rounded-xl flex items-center justify-center shadow-lg shadow-blue-900/20">
+                    <div class="w-12 h-12 bg-gradient-to-br from-blue-600 to-blue-800 rounded-xl flex items-center justify-center shadow-lg shadow-blue-900/20">
                         <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>
                         </svg>
@@ -47,9 +50,6 @@
                     </div>
                 </div>
             </div>
-
-            {{-- Card --}}
-            <div class="glass-card p-8 shadow-xl shadow-gray-200/50">
                 @yield('content')
             </div>
 

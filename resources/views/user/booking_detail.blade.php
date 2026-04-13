@@ -123,9 +123,6 @@
 
                     {{-- Submit --}}
                     <button type="submit" class="btn-gradient-amber w-full text-center font-semibold py-3 rounded-xl text-white cursor-pointer border-none flex items-center justify-center gap-2   hover:transform hover:-translate-y-0.5">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-                        </svg>
                         Konfirmasi & Pesan Sekarang
                     </button>
                 </form>

@@ -5,6 +5,13 @@
 @section('page-subtitle', 'Kelola dan konfirmasi pembayaran pelanggan')
 
 @section('content')
+    {{-- Breadcrumb --}}
+    <div class="flex items-center gap-2 text-sm mb-6 animate-fade-in">
+        <a href="{{ route('dashboard') }}" class="text-gray-400 hover:text-gray-900 ">Dashboard</a>
+        <span class="text-gray-300">/</span>
+        <span class="text-gray-900 font-medium">Konfirmasi Transaksi</span>
+    </div>
+
     {{-- Summary Cards --}}
     <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
         <div class="glass-card p-5">
@@ -97,7 +104,7 @@
                                 </td>
                                 <td>
                                     <div class="flex items-center gap-2">
-                                        <div class="w-7 h-7 rounded-full bg-gradient-to-br from-gray-700 to-gray-900 flex items-center justify-center text-white text-[10px] font-bold shrink-0">
+                                        <div class="w-7 h-7 rounded-full bg-gradient-to-br from-blue-600 to-blue-800 flex items-center justify-center text-white text-[10px] font-bold shrink-0">
                                             {{ strtoupper(substr($t->booking->user->name, 0, 1)) }}
                                         </div>
                                         <div>

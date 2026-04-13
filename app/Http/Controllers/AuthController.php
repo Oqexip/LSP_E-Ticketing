@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Booking;
 use App\Models\User;
 use App\Models\Schedule;
+use App\Models\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -55,7 +56,12 @@ class AuthController extends Controller
         if (Auth::user()->role == 'admin') {
             $schedules = Schedule::latest()->get();
             $bookings = Booking::with(['user', 'schedule'])->latest()->get();
-            return view('admin.dashboard', compact('schedules', 'bookings'));
+            $pendingTransactions = Transaction::with(['booking.user', 'booking.schedule'])
+                ->where('status', 'Pending')
+                ->whereNotNull('payment_proof')
+                ->latest()
+                ->get();
+            return view('admin.dashboard', compact('schedules', 'bookings', 'pendingTransactions'));
         }
 
         // Jika user, kirim data jadwal untuk dipesan

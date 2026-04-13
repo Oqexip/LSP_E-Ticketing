@@ -70,8 +70,8 @@
 }
 
 @keyframes pulse-glow {
-    0%, 100% { box-shadow: 0 0 20px rgba(14, 165, 233, 0.1); }
-    50% { box-shadow: 0 0 40px rgba(14, 165, 233, 0.2); }
+    0%, 100% { box-shadow: 0 0 20px rgba(59, 130, 246, 0.1); }
+    50% { box-shadow: 0 0 40px rgba(59, 130, 246, 0.2); }
 }
 
 @keyframes plane-fly {
@@ -232,8 +232,8 @@
 }
 
 .input-styled:focus {
-    border-color: #0ea5e9;
-    box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.12);
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.12);
     background: #ffffff;
 }
 
@@ -254,8 +254,8 @@
 }
 
 .input-admin:focus {
-    border-color: #0ea5e9;
-    box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.12);
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.12);
     background: #ffffff;
 }
 
@@ -273,7 +273,7 @@
 .route-line .line {
     flex: 1;
     height: 2px;
-    background: linear-gradient(90deg, #0ea5e9, #6366f1);
+    background: linear-gradient(90deg, #3b82f6, #6366f1);
     position: relative;
 }
 
@@ -406,7 +406,7 @@
 }
 
 .sidebar-link.active {
-    background: #f0f9ff;
-    color: #0284c7;
-    border: 1px solid #bae6fd;
+    background: #eff6ff;
+    color: #2563eb;
+    border: 1px solid #bfdbfe;
 }
