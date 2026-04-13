@@ -197,6 +197,9 @@
                     </tbody>
                 </table>
             </div>
+            <div class="px-5 pb-5 mt-4">
+                {{ $transactions->links() }}
+            </div>
         @endif
     </div>
 

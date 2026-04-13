@@ -572,7 +572,7 @@
                         </svg>
                         <p class="text-xs font-semibold" style="color: ${info.color}">${info.name}</p>
                     </div>
-                    <p class="text-[10px] text-gray-500 mt-1">Scan QR code pada bagian E-Wallet di atas, lalu upload bukti pembayaran.</p>
+                    <p class="text-[10px] text-gray-500 mt-1">Scan QR code pada bagian E-Wallet, lalu upload bukti pembayaran.</p>
                 </div>
             `;
         }

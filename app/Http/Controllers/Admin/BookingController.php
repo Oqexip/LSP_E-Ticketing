@@ -12,7 +12,7 @@ class BookingController extends Controller
     public function index()
     {
         // Mengambil data booking beserta relasi user dan schedule
-        $bookings = Booking::with(['user', 'schedule'])->latest()->get();
+        $bookings = Booking::with(['user', 'schedule'])->latest()->paginate(10);
         return view('admin.bookings.index', compact('bookings'));
     }
 }

@@ -91,8 +91,8 @@ class ReportController extends Controller
         $recentTransactions = Transaction::with(['booking.user', 'booking.schedule'])
             ->whereBetween('created_at', [$start, $end])
             ->latest()
-            ->limit(10)
-            ->get();
+            ->paginate(10)
+            ->withQueryString();
 
         return view('admin.reports.index', compact(
             'startDate',

@@ -13,7 +13,7 @@ class TransactionController extends Controller
     {
         $transactions = Transaction::with(['booking.user', 'booking.schedule'])
             ->latest()
-            ->get();
+            ->paginate(10);
 
         return view('admin.transactions.index', compact('transactions'));
     }

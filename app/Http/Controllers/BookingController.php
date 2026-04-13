@@ -59,7 +59,7 @@ class BookingController extends Controller
         $orders = Booking::where('user_id', Auth::id())
                         ->with(['schedule', 'transaction']) 
                         ->latest()
-                        ->get();
+                        ->paginate(10);
 
         return view('user.history', compact('orders'));
     }

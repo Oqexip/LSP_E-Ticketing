@@ -54,18 +54,18 @@ class AuthController extends Controller
     public function dashboard()
     {
         if (Auth::user()->role == 'admin') {
-            $schedules = Schedule::latest()->get();
-            $bookings = Booking::with(['user', 'schedule'])->latest()->get();
+            $schedules = Schedule::latest()->paginate(5, ['*'], 'sched_page');
+            $bookings = Booking::with(['user', 'schedule'])->latest()->paginate(5, ['*'], 'book_page');
             $pendingTransactions = Transaction::with(['booking.user', 'booking.schedule'])
                 ->where('status', 'Pending')
                 ->whereNotNull('payment_proof')
                 ->latest()
-                ->get();
+                ->paginate(5, ['*'], 'pend_page');
             return view('admin.dashboard', compact('schedules', 'bookings', 'pendingTransactions'));
         }
 
         // Jika user, kirim data jadwal untuk dipesan
-        $schedules = Schedule::where('stock', '>', 0)->get();
+        $schedules = Schedule::where('stock', '>', 0)->paginate(6);
         return view('user.dashboard', compact('schedules'));
     }
 

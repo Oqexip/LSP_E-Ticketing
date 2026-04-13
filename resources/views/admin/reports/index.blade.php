@@ -366,6 +366,9 @@
                     </tbody>
                 </table>
             </div>
+            <div class="px-5 pb-5 mt-4">
+                {{ $recentTransactions->links() }}
+            </div>
         @endif
     </div>
 @endsection

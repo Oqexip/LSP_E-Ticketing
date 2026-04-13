@@ -169,6 +169,9 @@
                     </tbody>
                 </table>
             </div>
+            <div class="px-5 pb-5 mt-4">
+                {{ $schedules->appends(request()->except('sched_page'))->links() }}
+            </div>
         @endif
     </div>
 
@@ -300,6 +303,9 @@
                     </tbody>
                 </table>
             </div>
+            <div class="px-5 pb-5 mt-4">
+                {{ $pendingTransactions->appends(request()->except('pend_page'))->links() }}
+            </div>
         @endif
     </div>
 
@@ -375,6 +381,9 @@
                         @endforeach
                     </tbody>
                 </table>
+            </div>
+            <div class="px-5 pb-5 mt-4">
+                {{ $bookings->appends(request()->except('book_page'))->links() }}
             </div>
         @endif
     </div>

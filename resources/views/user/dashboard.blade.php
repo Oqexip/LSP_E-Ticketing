@@ -117,5 +117,9 @@
                 </div>
             @endforeach
         </div>
+
+        <div class="mt-8">
+            {{ $schedules->links() }}
+        </div>
     @endif
 @endsection
