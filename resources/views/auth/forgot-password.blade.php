@@ -1,11 +1,11 @@
 @extends('layouts.auth')
 
-@section('title', 'Login - E-Ticketing Easy')
+@section('title', 'Lupa Password - E-Ticketing Easy')
 
 @section('content')
     <div class="text-center mb-6">
-        <h2 class="text-2xl font-bold text-gray-900">Selamat Datang</h2>
-        <p class="text-gray-500 mt-1 text-sm">Masuk ke akun Anda untuk melanjutkan</p>
+        <h2 class="text-2xl font-bold text-gray-900">Lupa Password</h2>
+        <p class="text-gray-500 mt-1 text-sm">Masukkan email Anda. Kami akan mengirimkan link untuk mereset password baru.</p>
     </div>
 
     {{-- Error Messages --}}
@@ -40,7 +40,7 @@
         </div>
     @endif
 
-    <form action="{{ route('login.post') }}" method="POST" class="space-y-5">
+    <form action="{{ route('password.email') }}" method="POST" class="space-y-5">
         @csrf
 
         {{-- Email --}}
@@ -57,38 +57,19 @@
             </div>
         </div>
 
-        {{-- Password --}}
-        <div>
-            <div class="flex items-center justify-between mb-2">
-                <label class="block text-sm font-medium text-gray-700">Password</label>
-                <a href="{{ route('password.request') }}" class="text-sm font-medium text-blue-600 hover:text-blue-500">
-                    Lupa Password?
-                </a>
-            </div>
-            <div class="relative">
-                <span class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
-                    </svg>
-                </span>
-                <input type="password" name="password" required
-                    class="input-styled" placeholder="Masukkan password">
-            </div>
-        </div>
-
         {{-- Submit Button --}}
         <button type="submit" class="btn-gradient w-full text-center flex items-center justify-center gap-2 mt-2">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"/>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
             </svg>
-            Masuk
+            Kirim Link Reset Password
         </button>
     </form>
 @endsection
 
 @section('footer')
     <p class="text-gray-500 text-sm">
-        Belum punya akun?
-        <a href="{{ route('register') }}" class="text-gray-900 hover:text-gray-700 font-medium ">Daftar sekarang</a>
+        Ingat password Anda?
+        <a href="{{ route('login') }}" class="text-gray-900 hover:text-gray-700 font-medium ">Kembali ke Login</a>
     </p>
 @endsection
