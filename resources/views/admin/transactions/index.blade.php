@@ -7,7 +7,7 @@
 @section('content')
     {{-- Summary Cards --}}
     <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
-        <div class="glass-card p-5 animate-fade-in-up stagger-1">
+        <div class="glass-card p-5">
             <div class="flex items-center justify-between">
                 <div>
                     <p class="text-xs text-gray-500 uppercase tracking-wider">Pending</p>
@@ -20,7 +20,7 @@
                 </div>
             </div>
         </div>
-        <div class="glass-card p-5 animate-fade-in-up stagger-2">
+        <div class="glass-card p-5">
             <div class="flex items-center justify-between">
                 <div>
                     <p class="text-xs text-gray-500 uppercase tracking-wider">Lunas</p>
@@ -33,7 +33,7 @@
                 </div>
             </div>
         </div>
-        <div class="glass-card p-5 animate-fade-in-up stagger-3">
+        <div class="glass-card p-5">
             <div class="flex items-center justify-between">
                 <div>
                     <p class="text-xs text-gray-500 uppercase tracking-wider">Gagal</p>
@@ -49,7 +49,7 @@
     </div>
 
     {{-- Transactions Table --}}
-    <div class="glass-card overflow-hidden animate-fade-in-up stagger-4">
+    <div class="glass-card overflow-hidden">
         <div class="flex items-center justify-between p-5 border-b border-gray-100">
             <div class="flex items-center gap-3">
                 <div class="w-8 h-8 rounded-lg bg-green-50 flex items-center justify-center">
@@ -130,7 +130,7 @@
                                 <td>
                                     @if($t->payment_proof)
                                         <button onclick="showProof('{{ asset('storage/' . $t->payment_proof) }}')"
-                                            class="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-blue-50 text-blue-600 text-xs font-medium hover:bg-blue-100 transition-colors cursor-pointer border-none">
+                                            class="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-blue-50 text-blue-600 text-xs font-medium hover:bg-blue-100  cursor-pointer border-none">
                                             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
                                             </svg>
@@ -160,8 +160,8 @@
                                         <div class="flex items-center justify-center gap-2">
                                             <form action="{{ route('admin.transactions.confirm', $t->id) }}" method="POST" class="inline">
                                                 @csrf
-                                                <button type="submit" onclick="return confirm('Konfirmasi transaksi #{{ $t->id }}?')"
-                                                    class="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-green-50 text-green-600 text-xs font-medium hover:bg-green-100 transition-colors cursor-pointer border-none">
+                                                <button type="button" onclick="confirmAction(event, this.closest('form'), 'Konfirmasi Transaksi #{{ $t->id }}?', 'Menyetujui transaksi ini akan mengubah statusnya menjadi Lunas.', 'success')"
+                                                    class="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-green-50 text-green-600 text-xs font-medium hover:bg-green-100  cursor-pointer border-none">
                                                     <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
                                                     </svg>
@@ -170,8 +170,8 @@
                                             </form>
                                             <form action="{{ route('admin.transactions.reject', $t->id) }}" method="POST" class="inline">
                                                 @csrf
-                                                <button type="submit" onclick="return confirm('Tolak transaksi #{{ $t->id }}? Stok kursi akan dikembalikan.')"
-                                                    class="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-red-50 text-red-600 text-xs font-medium hover:bg-red-100 transition-colors cursor-pointer border-none">
+                                                <button type="button" onclick="confirmAction(event, this.closest('form'), 'Tolak Transaksi #{{ $t->id }}?', 'Stok kursi dari pemesanan ini akan segera dikembalikan.', 'warning')"
+                                                    class="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-red-50 text-red-600 text-xs font-medium hover:bg-red-100  cursor-pointer border-none">
                                                     <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
                                                     </svg>
@@ -195,8 +195,8 @@
 
     {{-- Image Preview Modal --}}
     <div id="proof-modal" class="fixed inset-0 z-[100] hidden items-center justify-center bg-black/60 backdrop-blur-sm" onclick="closeProof()">
-        <div class="relative max-w-2xl w-full mx-4 animate-fade-in-up" onclick="event.stopPropagation()">
-            <button onclick="closeProof()" class="absolute -top-3 -right-3 w-8 h-8 bg-white rounded-full shadow-lg flex items-center justify-center text-gray-500 hover:text-gray-900 transition-colors cursor-pointer border-none z-10">
+        <div class="relative max-w-2xl w-full mx-4" onclick="event.stopPropagation()">
+            <button onclick="closeProof()" class="absolute -top-3 -right-3 w-8 h-8 bg-white rounded-full shadow-lg flex items-center justify-center text-gray-500 hover:text-gray-900  cursor-pointer border-none z-10">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
                 </svg>
@@ -233,5 +233,23 @@
     document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape') closeProof();
     });
+
+    function confirmAction(e, form, title, text, icon) {
+        e.preventDefault();
+        Swal.fire({
+            title: title,
+            text: text,
+            icon: icon,
+            showCancelButton: true,
+            confirmButtonColor: icon === 'warning' ? '#d33' : '#3085d6',
+            cancelButtonColor: '#aaa',
+            confirmButtonText: 'Ya, Lanjutkan',
+            cancelButtonText: 'Batal'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                form.submit();
+            }
+        });
+    }
 </script>
 @endsection

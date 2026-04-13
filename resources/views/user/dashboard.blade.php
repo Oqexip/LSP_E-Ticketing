@@ -6,7 +6,7 @@
 
 @section('content')
     {{-- Welcome Banner --}}
-    <div class="glass-card p-6 mb-8 animate-fade-in-up">
+    <div class="glass-card p-6 mb-8">
         <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
             <div>
                 <h3 class="text-xl font-bold text-gray-900">
@@ -25,7 +25,7 @@
 
     {{-- Flight Cards --}}
     @if($schedules->isEmpty())
-        <div class="glass-card p-12 text-center animate-fade-in-up stagger-2">
+        <div class="glass-card p-12 text-center stagger-2">
             <div class="mb-4 flex justify-center">
                 <svg class="w-16 h-16 text-gray-300 animate-float" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>
@@ -37,7 +37,7 @@
     @else
         <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
             @foreach($schedules as $index => $item)
-                <div class="glass-card p-6 hover:border-gray-300 transition-all duration-300 hover:shadow-lg hover:shadow-gray-200/50 group animate-fade-in-up stagger-{{ ($index % 5) + 1 }}">
+                <div class="glass-card p-6 hover:border-gray-300   hover:shadow-lg hover:shadow-gray-200/50 group stagger-{{ ($index % 5) + 1 }}">
                     {{-- Header --}}
                     <div class="flex items-center justify-between mb-4">
                         <div class="flex items-center gap-2">
@@ -109,7 +109,7 @@
                         <a href="/booking/{{ $item->id }}"
                             class="btn-gradient !py-2.5 !px-5 text-sm inline-flex items-center gap-1.5 no-underline">
                             Pesan
-                            <svg class="w-4 h-4 transition-transform group-hover:translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <svg class="w-4 h-4  group-hover:translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
                             </svg>
                         </a>

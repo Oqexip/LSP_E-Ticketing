@@ -84,6 +84,6 @@
 @section('footer')
     <p class="text-gray-500 text-sm">
         Belum punya akun?
-        <a href="{{ route('register') }}" class="text-gray-900 hover:text-gray-700 font-medium transition-colors">Daftar sekarang</a>
+        <a href="{{ route('register') }}" class="text-gray-900 hover:text-gray-700 font-medium ">Daftar sekarang</a>
     </p>
 @endsection

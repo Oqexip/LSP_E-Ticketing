@@ -7,14 +7,14 @@
 @section('content')
     {{-- Breadcrumb --}}
     <div class="flex items-center gap-2 text-sm mb-6 animate-fade-in">
-        <a href="{{ route('dashboard') }}" class="text-gray-400 hover:text-gray-900 transition-colors">Dashboard</a>
+        <a href="{{ route('dashboard') }}" class="text-gray-400 hover:text-gray-900 ">Dashboard</a>
         <span class="text-gray-300">/</span>
         <span class="text-gray-900 font-medium">Semua Transaksi</span>
     </div>
 
     {{-- Summary Cards --}}
     <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
-        <div class="glass-card p-5 animate-fade-in-up stagger-1">
+        <div class="glass-card p-5">
             <div class="flex items-center gap-3">
                 <div class="w-10 h-10 rounded-xl bg-blue-50 flex items-center justify-center">
                     <svg class="w-5 h-5 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -27,7 +27,7 @@
                 </div>
             </div>
         </div>
-        <div class="glass-card p-5 animate-fade-in-up stagger-2">
+        <div class="glass-card p-5">
             <div class="flex items-center gap-3">
                 <div class="w-10 h-10 rounded-xl bg-green-50 flex items-center justify-center">
                     <svg class="w-5 h-5 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -40,7 +40,7 @@
                 </div>
             </div>
         </div>
-        <div class="glass-card p-5 animate-fade-in-up stagger-3">
+        <div class="glass-card p-5">
             <div class="flex items-center gap-3">
                 <div class="w-10 h-10 rounded-xl bg-purple-50 flex items-center justify-center">
                     <svg class="w-5 h-5 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -56,7 +56,7 @@
     </div>
 
     {{-- Transactions Table --}}
-    <div class="glass-card overflow-hidden animate-fade-in-up stagger-4">
+    <div class="glass-card overflow-hidden">
         <div class="flex items-center justify-between p-5 border-b border-gray-100">
             <div class="flex items-center gap-3">
                 <div class="w-8 h-8 rounded-lg bg-green-50 flex items-center justify-center">

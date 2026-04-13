@@ -7,14 +7,14 @@
 @section('content')
     {{-- Breadcrumb --}}
     <div class="flex items-center gap-2 text-sm mb-6 animate-fade-in">
-        <a href="{{ route('dashboard') }}" class="text-gray-400 hover:text-gray-900 transition-colors">Dashboard</a>
+        <a href="{{ route('dashboard') }}" class="text-gray-400 hover:text-gray-900 ">Dashboard</a>
         <span class="text-gray-300">/</span>
         <span class="text-gray-900 font-medium">Riwayat Pemesanan</span>
     </div>
 
     @if ($orders->isEmpty())
         {{-- Empty State --}}
-        <div class="glass-card p-12 text-center animate-fade-in-up">
+        <div class="glass-card p-12 text-center">
             <div class="mb-4 flex justify-center">
                 <svg class="w-16 h-16 text-gray-300 animate-float" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
@@ -31,7 +31,7 @@
         </div>
     @else
         {{-- Summary Card --}}
-        <div class="glass-card p-5 mb-6 animate-fade-in-up">
+        <div class="glass-card p-5 mb-6 ">
             <div class="flex flex-wrap items-center gap-6">
                 <div class="flex items-center gap-3">
                     <div class="w-10 h-10 rounded-xl bg-blue-50 flex items-center justify-center">
@@ -62,7 +62,7 @@
         {{-- Booking Cards --}}
         <div class="space-y-4">
             @foreach ($orders as $index => $item)
-                <div class="glass-card p-5 hover:border-gray-300 transition-all duration-300 animate-fade-in-up stagger-{{ ($index % 5) + 1 }}">
+                <div class="glass-card p-5 hover:border-gray-300 stagger-{{ ($index % 5) + 1 }}">
                     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                         {{-- Left: Flight Info --}}
                         <div class="flex items-start gap-4 flex-1">
@@ -117,7 +117,7 @@
                                     </a>
                                 @elseif($item->transaction->status === 'Pending' && $item->transaction->payment_proof)
                                     <a href="{{ route('transaction.show', $item->transaction->id) }}" 
-                                       class="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-amber-50 text-amber-600 text-sm font-medium hover:bg-amber-100 transition-colors no-underline shrink-0">
+                                       class="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-amber-50 text-amber-600 text-sm font-medium hover:bg-amber-100  no-underline shrink-0">
                                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
                                         </svg>
@@ -125,7 +125,7 @@
                                     </a>
                                 @else
                                     <a href="{{ route('transaction.show', $item->transaction->id) }}" 
-                                       class="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-gray-50 text-gray-600 text-sm font-medium hover:bg-gray-100 transition-colors no-underline shrink-0">
+                                       class="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-gray-50 text-gray-600 text-sm font-medium hover:bg-gray-100  no-underline shrink-0">
                                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>

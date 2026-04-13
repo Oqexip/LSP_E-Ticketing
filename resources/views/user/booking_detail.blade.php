@@ -7,7 +7,7 @@
 @section('content')
     {{-- Breadcrumb --}}
     <div class="flex items-center gap-2 text-sm mb-6 animate-fade-in">
-        <a href="{{ route('dashboard') }}" class="text-gray-400 hover:text-gray-900 transition-colors">Dashboard</a>
+        <a href="{{ route('dashboard') }}" class="text-gray-400 hover:text-gray-900 ">Dashboard</a>
         <span class="text-gray-300">/</span>
         <span class="text-gray-900 font-medium">Konfirmasi Pemesanan</span>
     </div>
@@ -16,7 +16,7 @@
         {{-- Flight Detail Card (Left / Top) --}}
         <div class="lg:col-span-2 space-y-6">
             {{-- Flight Info Card --}}
-            <div class="glass-card p-6 animate-fade-in-up">
+            <div class="glass-card p-6">
                 <div class="flex items-center gap-3 mb-5">
                     <div class="w-10 h-10 rounded-xl bg-blue-50 flex items-center justify-center">
                         <svg class="w-5 h-5 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -89,7 +89,7 @@
 
         {{-- Booking Form Card (Right / Bottom) --}}
         <div class="lg:col-span-1">
-            <div class="glass-card p-6 animate-fade-in-up stagger-2 sticky top-24">
+            <div class="glass-card p-6 sticky top-24">
                 <h4 class="text-lg font-bold text-gray-900 mb-1">Formulir Pemesanan</h4>
                 <p class="text-xs text-gray-500 mb-5">Tentukan jumlah kursi yang ingin dipesan</p>
 
@@ -122,7 +122,7 @@
                     </div>
 
                     {{-- Submit --}}
-                    <button type="submit" class="btn-gradient-amber w-full text-center font-semibold py-3 rounded-xl text-white cursor-pointer border-none flex items-center justify-center gap-2 transition-all duration-300 hover:transform hover:-translate-y-0.5">
+                    <button type="submit" class="btn-gradient-amber w-full text-center font-semibold py-3 rounded-xl text-white cursor-pointer border-none flex items-center justify-center gap-2   hover:transform hover:-translate-y-0.5">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
                         </svg>

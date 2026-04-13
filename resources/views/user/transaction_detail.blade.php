@@ -7,9 +7,9 @@
 @section('content')
     {{-- Breadcrumb --}}
     <div class="flex items-center gap-2 text-sm mb-6 animate-fade-in">
-        <a href="{{ route('dashboard') }}" class="text-gray-400 hover:text-gray-900 transition-colors">Dashboard</a>
+        <a href="{{ route('dashboard') }}" class="text-gray-400 hover:text-gray-900 ">Dashboard</a>
         <span class="text-gray-300">/</span>
-        <a href="{{ route('booking.history') }}" class="text-gray-400 hover:text-gray-900 transition-colors">Riwayat</a>
+        <a href="{{ route('booking.history') }}" class="text-gray-400 hover:text-gray-900 ">Riwayat</a>
         <span class="text-gray-300">/</span>
         <span class="text-gray-900 font-medium">Pembayaran #{{ $transaction->id }}</span>
     </div>
@@ -18,7 +18,7 @@
         {{-- Left: Flight & Transaction Info --}}
         <div class="lg:col-span-2 space-y-6">
             {{-- Status Banner --}}
-            <div class="glass-card p-5 animate-fade-in-up
+            <div class="glass-card p-5
                 @if($transaction->status === 'Lunas') border-green-200 bg-green-50/50
                 @elseif($transaction->status === 'Gagal') border-red-200 bg-red-50/50
                 @else border-amber-200 bg-amber-50/50
@@ -71,7 +71,7 @@
             </div>
 
             {{-- Flight Info Card --}}
-            <div class="glass-card p-6 animate-fade-in-up stagger-1">
+            <div class="glass-card p-6">
                 <div class="flex items-center gap-3 mb-5">
                     <div class="w-10 h-10 rounded-xl bg-blue-50 flex items-center justify-center">
                         <svg class="w-5 h-5 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -135,7 +135,7 @@
 
             {{-- Uploaded Payment Proof --}}
             @if($transaction->payment_proof)
-                <div class="glass-card p-6 animate-fade-in-up stagger-2">
+                <div class="glass-card p-6">
                     <div class="flex items-center gap-3 mb-5">
                         <div class="w-10 h-10 rounded-xl bg-green-50 flex items-center justify-center">
                             <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -158,7 +158,7 @@
 
         {{-- Right: Payment Form / Summary --}}
         <div class="lg:col-span-1">
-            <div class="glass-card p-6 animate-fade-in-up stagger-2 sticky top-24">
+            <div class="glass-card p-6 sticky top-24">
                 @if($transaction->status === 'Pending' && !$transaction->payment_proof)
                     {{-- Payment Form --}}
                     <h4 class="text-lg font-bold text-gray-900 mb-1">Upload Bukti Bayar</h4>
@@ -192,7 +192,7 @@
                                     class="hidden"
                                     onchange="previewImage(this)">
                                 <label for="payment_proof" 
-                                    class="flex flex-col items-center justify-center w-full h-40 border-2 border-dashed border-gray-300 rounded-xl cursor-pointer hover:border-gray-400 hover:bg-gray-50 transition-all duration-300"
+                                    class="flex flex-col items-center justify-center w-full h-40 border-2 border-dashed border-gray-300 rounded-xl cursor-pointer hover:border-gray-400 hover:bg-gray-50  "
                                     id="upload-area">
                                     <div id="upload-placeholder" class="flex flex-col items-center">
                                         <svg class="w-10 h-10 text-gray-300 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -223,7 +223,7 @@
                         </div>
 
                         {{-- Submit --}}
-                        <button type="submit" class="btn-gradient-amber w-full text-center font-semibold py-3 rounded-xl text-white cursor-pointer border-none flex items-center justify-center gap-2 transition-all duration-300 hover:transform hover:-translate-y-0.5">
+                        <button type="submit" class="btn-gradient-amber w-full text-center font-semibold py-3 rounded-xl text-white cursor-pointer border-none flex items-center justify-center gap-2   hover:transform hover:-translate-y-0.5">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/>
                             </svg>
@@ -268,7 +268,7 @@
                         </div>
                     </div>
 
-                    <a href="{{ route('booking.history') }}" class="btn-gradient w-full text-center font-semibold py-3 rounded-xl text-white mt-6 inline-flex items-center justify-center gap-2 no-underline transition-all duration-300 hover:transform hover:-translate-y-0.5">
+                    <a href="{{ route('booking.history') }}" class="btn-gradient w-full text-center font-semibold py-3 rounded-xl text-white mt-6 inline-flex items-center justify-center gap-2 no-underline   hover:transform hover:-translate-y-0.5">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
                         </svg>

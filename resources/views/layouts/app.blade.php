@@ -15,11 +15,11 @@
 <body class="min-h-screen bg-gray-50 font-sans antialiased">
     <div class="flex min-h-screen">
         {{-- Sidebar --}}
-        <aside id="sidebar" class="fixed inset-y-0 left-0 z-50 w-64 bg-white border-r border-gray-200 transform -translate-x-full lg:translate-x-0 transition-transform duration-300 ease-in-out">
+        <aside id="sidebar" class="fixed inset-y-0 left-0 z-50 w-64 bg-white border-r border-gray-200 transform -translate-x-full lg:translate-x-0   ">
             {{-- Logo --}}
             <div class="p-6 border-b border-gray-100">
                 <a href="{{ route('dashboard') }}" class="flex items-center gap-3">
-                    <div class="w-10 h-10 bg-gradient-to-br from-gray-800 to-gray-900 rounded-xl flex items-center justify-center shadow-lg shadow-gray-900/10">
+                    <div class="w-10 h-10 bg-gradient-to-br from-blue-600 to-blue-800 rounded-xl flex items-center justify-center shadow-lg shadow-blue-900/20">
                         <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>
                         </svg>
@@ -89,7 +89,7 @@
             <header class="sticky top-0 z-40 bg-white/80 backdrop-blur-xl border-b border-gray-200">
                 <div class="flex items-center justify-between px-6 py-4">
                     {{-- Mobile Menu Toggle --}}
-                    <button onclick="toggleSidebar()" class="lg:hidden text-gray-400 hover:text-gray-900 transition-colors">
+                    <button onclick="toggleSidebar()" class="lg:hidden text-gray-400 hover:text-gray-900 ">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
                         </svg>
@@ -165,6 +165,7 @@
         }
     </script>
 
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     @yield('scripts')
 </body>
 

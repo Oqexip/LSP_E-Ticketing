@@ -7,13 +7,13 @@
 @section('content')
     {{-- Breadcrumb --}}
     <div class="flex items-center gap-2 text-sm mb-6 animate-fade-in">
-        <a href="{{ route('dashboard') }}" class="text-gray-400 hover:text-gray-900 transition-colors">Dashboard</a>
+        <a href="{{ route('dashboard') }}" class="text-gray-400 hover:text-gray-900 ">Dashboard</a>
         <span class="text-gray-300">/</span>
         <span class="text-gray-900 font-medium">Edit Jadwal</span>
     </div>
 
     <div class="max-w-2xl mx-auto">
-        <div class="glass-card p-8 animate-fade-in-up">
+        <div class="glass-card p-8">
             {{-- Header --}}
             <div class="flex items-center gap-3 mb-6">
                 <div class="w-10 h-10 rounded-xl bg-amber-50 flex items-center justify-center">
@@ -75,13 +75,13 @@
 
                 {{-- Actions --}}
                 <div class="flex items-center justify-between pt-4 border-t border-gray-100">
-                    <a href="{{ route('dashboard') }}" class="text-sm text-gray-400 hover:text-gray-900 transition-colors flex items-center gap-1.5 no-underline">
+                    <a href="{{ route('dashboard') }}" class="text-sm text-gray-400 hover:text-gray-900  flex items-center gap-1.5 no-underline">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
                         </svg>
                         Kembali
                     </a>
-                    <button type="submit" class="btn-gradient inline-flex items-center gap-2 text-white font-semibold py-2.5 px-6 rounded-xl border-none cursor-pointer transition-all duration-300">
+                    <button type="submit" class="btn-gradient inline-flex items-center gap-2 text-white font-semibold py-2.5 px-6 rounded-xl border-none cursor-pointer  ">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/>
                         </svg>
