@@ -22,12 +22,12 @@
                     </svg>
                 </div>
                 <div>
-                    <p class="text-2xl font-bold text-gray-900">{{ $bookings->count() }}</p>
+                    <p class="text-2xl font-bold text-gray-900">{{ $totalBookingsCount }}</p>
                     <p class="text-[10px] text-gray-500 uppercase tracking-wider">Total Transaksi</p>
                 </div>
             </div>
         </div>
-        <div class="glass-card p-5" title="Rp {{ number_format($bookings->where('status', 'Lunas')->sum('total_price')) }}">
+        <div class="glass-card p-5" title="Rp {{ number_format($totalRevenue) }}">
             <div class="flex items-center gap-3">
                 <div class="w-10 h-10 rounded-xl bg-green-50 flex items-center justify-center">
                     <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -35,7 +35,7 @@
                     </svg>
                 </div>
                 <div>
-                    <p class="text-lg font-bold text-accent-500 truncate">Rp {{ number_format($bookings->where('status', 'Lunas')->sum('total_price')) }}</p>
+                    <p class="text-lg font-bold text-accent-500 truncate">Rp {{ number_format($totalRevenue) }}</p>
                     <p class="text-[10px] text-gray-500 uppercase tracking-wider">Total Revenue</p>
                 </div>
             </div>
@@ -48,7 +48,7 @@
                     </svg>
                 </div>
                 <div>
-                    <p class="text-2xl font-bold text-gray-900">{{ $bookings->where('status', 'Lunas')->sum('total_seats') }}</p>
+                    <p class="text-2xl font-bold text-gray-900">{{ $totalSeatsSold }}</p>
                     <p class="text-[10px] text-gray-500 uppercase tracking-wider">Kursi Terjual</p>
                 </div>
             </div>
@@ -56,7 +56,7 @@
     </div>
 
     {{-- Transactions Table --}}
-    <div class="glass-card overflow-hidden">
+    <div class="glass-card overflow-hidden" id="recent-transactions-section">
         <div class="flex items-center justify-between p-5 border-b border-gray-100">
             <div class="flex items-center gap-3">
                 <div class="w-8 h-8 rounded-lg bg-green-50 flex items-center justify-center">
@@ -66,7 +66,7 @@
                 </div>
                 <div>
                     <h3 class="text-gray-900 font-semibold">Daftar Transaksi</h3>
-                    <p class="text-xs text-gray-500">{{ $bookings->count() }} transaksi dari semua user</p>
+                    <p class="text-xs text-gray-500">{{ $totalBookingsCount }} transaksi dari semua user</p>
                 </div>
             </div>
         </div>
@@ -79,15 +79,28 @@
             <div class="overflow-x-auto">
                 <table class="table-modern">
                     <thead>
+                        @php
+                            $getSortUrl = function($field) {
+                                $currentSort = request('sort', 'waktu');
+                                $currentOrder = request('order', 'desc');
+                                $order = ($currentSort === $field && $currentOrder === 'desc') ? 'asc' : 'desc';
+                                return request()->fullUrlWithQuery(['sort' => $field, 'order' => $order]);
+                            };
+                            $getSortIcon = function($field) {
+                                $currentSort = request('sort', 'waktu');
+                                if ($currentSort !== $field) return '';
+                                return request('order', 'desc') === 'asc' ? '↑' : '↓';
+                            };
+                        @endphp
                         <tr>
-                            <th>ID</th>
-                            <th>Pemesan</th>
-                            <th>Pesawat</th>
-                            <th>Rute</th>
-                            <th>Kursi</th>
-                            <th>Total Bayar</th>
-                            <th>Status</th>
-                            <th>Waktu</th>
+                            <th><a href="{{ $getSortUrl('id') }}" class="text-gray-700 hover:text-blue-600 no-underline">ID {{ $getSortIcon('id') }}</a></th>
+                            <th><a href="{{ $getSortUrl('pemesan') }}" class="text-gray-700 hover:text-blue-600 no-underline">Pemesan {{ $getSortIcon('pemesan') }}</a></th>
+                            <th><a href="{{ $getSortUrl('pesawat') }}" class="text-gray-700 hover:text-blue-600 no-underline">Pesawat {{ $getSortIcon('pesawat') }}</a></th>
+                            <th><a href="{{ $getSortUrl('rute') }}" class="text-gray-700 hover:text-blue-600 no-underline">Rute {{ $getSortIcon('rute') }}</a></th>
+                            <th><a href="{{ $getSortUrl('kursi') }}" class="text-gray-700 hover:text-blue-600 no-underline">Kursi {{ $getSortIcon('kursi') }}</a></th>
+                            <th><a href="{{ $getSortUrl('total_bayar') }}" class="text-gray-700 hover:text-blue-600 no-underline">Total Bayar {{ $getSortIcon('total_bayar') }}</a></th>
+                            <th><a href="{{ $getSortUrl('status') }}" class="text-gray-700 hover:text-blue-600 no-underline">Status {{ $getSortIcon('status') }}</a></th>
+                            <th><a href="{{ $getSortUrl('waktu') }}" class="text-gray-700 hover:text-blue-600 no-underline">Waktu {{ $getSortIcon('waktu') }}</a></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -143,4 +156,43 @@
             </div>
         @endif
     </div>
+@endsection
+
+@section('scripts')
+<script>
+    // AJAX Table Sorting and Pagination
+    document.addEventListener('click', function(e) {
+        const tableSection = document.getElementById('recent-transactions-section');
+        const link = e.target.closest('#recent-transactions-section thead a, #recent-transactions-section nav a');
+        
+        if (link && tableSection) {
+            e.preventDefault();
+            const url = link.href;
+            
+            tableSection.style.opacity = '0.5';
+            tableSection.style.pointerEvents = 'none';
+            tableSection.style.transition = 'opacity 0.2s';
+
+            fetch(url, { headers: { 'X-Requested-With': 'XMLHttpRequest' } })
+                .then(res => res.text())
+                .then(html => {
+                    const parser = new DOMParser();
+                    const doc = parser.parseFromString(html, 'text/html');
+                    const newSection = doc.getElementById('recent-transactions-section');
+                    
+                    if (newSection) {
+                        tableSection.innerHTML = newSection.innerHTML;
+                    }
+                    tableSection.style.opacity = '1';
+                    tableSection.style.pointerEvents = 'auto';
+                    
+                    window.history.pushState({}, '', url);
+                })
+                .catch(err => {
+                    console.error('AJAX load failed:', err);
+                    window.location.href = url; // fallback
+                });
+        }
+    });
+</script>
 @endsection

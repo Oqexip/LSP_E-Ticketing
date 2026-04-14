@@ -36,9 +36,10 @@ class ReportController extends Controller
         $totalConfirmed = Transaction::where('status', 'Lunas')
             ->whereBetween('created_at', [$start, $end])
             ->count();
-        $totalSeatsSold = Booking::where('status', 'Lunas')
-            ->whereBetween('created_at', [$start, $end])
-            ->sum('total_seats');
+        $totalSeatsSold = Transaction::where('transactions.status', 'Lunas')
+            ->whereBetween('transactions.created_at', [$start, $end])
+            ->join('bookings', 'transactions.booking_id', '=', 'bookings.id')
+            ->sum('bookings.total_seats');
 
         // Revenue by Day (for chart)
         $dailyRevenue = Transaction::where('status', 'Lunas')
@@ -62,6 +63,7 @@ class ReportController extends Controller
             ->select('payment_method', DB::raw('COUNT(*) as count'), DB::raw('SUM(amount) as total'))
             ->groupBy('payment_method')
             ->orderByDesc('total')
+            ->limit(5)
             ->get();
 
         // By Status
@@ -87,12 +89,34 @@ class ReportController extends Controller
             ->limit(5)
             ->get();
 
-        // Recent Transactions
-        $recentTransactions = Transaction::with(['booking.user', 'booking.schedule'])
-            ->whereBetween('created_at', [$start, $end])
-            ->latest()
-            ->paginate(10)
-            ->withQueryString();
+        // Recent Transactions Sorting setup
+        $sort = $request->input('sort', 'waktu');
+        $order = $request->input('order', 'desc');
+        
+        $recentTransactionsQuery = Transaction::with(['booking.user', 'booking.schedule'])
+            ->leftJoin('bookings', 'transactions.booking_id', '=', 'bookings.id')
+            ->leftJoin('users', 'bookings.user_id', '=', 'users.id')
+            ->leftJoin('schedules', 'bookings.schedule_id', '=', 'schedules.id')
+            ->whereBetween('transactions.created_at', [$start, $end])
+            ->select('transactions.*'); 
+
+        if ($sort === 'id') {
+            $recentTransactionsQuery->orderBy('transactions.id', $order);
+        } elseif ($sort === 'pemesan') {
+            $recentTransactionsQuery->orderBy('users.name', $order);
+        } elseif ($sort === 'penerbangan') {
+            $recentTransactionsQuery->orderBy('schedules.plane_name', $order);
+        } elseif ($sort === 'metode') {
+            $recentTransactionsQuery->orderBy('transactions.payment_method', $order);
+        } elseif ($sort === 'jumlah') {
+            $recentTransactionsQuery->orderBy('transactions.amount', $order);
+        } elseif ($sort === 'status') {
+            $recentTransactionsQuery->orderBy('transactions.status', $order);
+        } else {
+            $recentTransactionsQuery->orderBy('transactions.created_at', $order);
+        }
+
+        $recentTransactions = $recentTransactionsQuery->paginate(10)->withQueryString();
 
         return view('admin.reports.index', compact(
             'startDate',

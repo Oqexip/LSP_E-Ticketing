@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
-@section('title', 'Dashboard - Pinto Air')
-@section('page-title', 'Dashboard')
+@section('title', 'Cari Penerbangan - Pinto Air')
+@section('page-title', 'Cari Penerbangan')
 @section('page-subtitle', 'Temukan penerbangan terbaik untuk Anda')
 
 @section('content')
@@ -16,7 +16,7 @@
             </div>
             <div class="flex items-center gap-3">
                 <div class="text-center px-4 py-2 rounded-xl bg-blue-50 border border-blue-100">
-                    <p class="text-2xl font-bold text-blue-600">{{ $schedules->count() }}</p>
+                    <p class="text-2xl font-bold text-blue-600">{{ $schedules->total() }}</p>
                     <p class="text-[10px] text-gray-500 uppercase tracking-wider">Penerbangan</p>
                 </div>
             </div>

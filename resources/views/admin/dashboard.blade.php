@@ -12,7 +12,7 @@
             <div class="flex items-center justify-between gap-3">
                 <div class="min-w-0">
                     <p class="text-xs text-gray-500 uppercase tracking-wider">Total Jadwal</p>
-                    <p class="text-3xl font-bold text-gray-900 mt-1">{{ $schedules->count() }}</p>
+                    <p class="text-3xl font-bold text-gray-900 mt-1">{{ $totalSchedules }}</p>
                 </div>
                 <div class="w-12 h-12 rounded-xl bg-blue-50 flex items-center justify-center shrink-0">
                     <svg class="w-6 h-6 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -27,7 +27,7 @@
             <div class="flex items-center justify-between gap-3">
                 <div class="min-w-0">
                     <p class="text-xs text-gray-500 uppercase tracking-wider">Total Booking</p>
-                    <p class="text-3xl font-bold text-gray-900 mt-1">{{ $bookings->count() }}</p>
+                    <p class="text-3xl font-bold text-gray-900 mt-1">{{ $totalBookings }}</p>
                 </div>
                 <div class="w-12 h-12 rounded-xl bg-green-50 flex items-center justify-center shrink-0">
                     <svg class="w-6 h-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -38,11 +38,11 @@
         </div>
 
         {{-- Total Revenue --}}
-        <div class="glass-card p-5" title="Rp {{ number_format($bookings->where('status', 'Lunas')->sum('total_price')) }}">
+        <div class="glass-card p-5" title="Rp {{ number_format($totalRevenue) }}">
             <div class="flex items-center justify-between gap-3">
                 <div class="min-w-0">
                     <p class="text-xs text-gray-500 uppercase tracking-wider">Total Revenue</p>
-                    <p class="text-lg font-bold text-accent-500 mt-1 truncate">Rp {{ number_format($bookings->where('status', 'Lunas')->sum('total_price')) }}</p>
+                    <p class="text-lg font-bold text-accent-500 mt-1 truncate">Rp {{ number_format($totalRevenue) }}</p>
                 </div>
                 <div class="w-12 h-12 rounded-xl bg-amber-50 flex items-center justify-center shrink-0">
                     <svg class="w-6 h-6 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -57,7 +57,7 @@
             <div class="flex items-center justify-between gap-3">
                 <div class="min-w-0">
                     <p class="text-xs text-gray-500 uppercase tracking-wider">Kursi Terjual</p>
-                    <p class="text-3xl font-bold text-gray-900 mt-1">{{ $bookings->where('status', 'Lunas')->sum('total_seats') }}</p>
+                    <p class="text-3xl font-bold text-gray-900 mt-1">{{ $totalSeatsSold }}</p>
                 </div>
                 <div class="w-12 h-12 rounded-xl bg-purple-50 flex items-center justify-center shrink-0">
                     <svg class="w-6 h-6 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -79,7 +79,7 @@
                 </div>
                 <div>
                     <h3 class="text-gray-900 font-semibold">Daftar Jadwal Penerbangan</h3>
-                    <p class="text-xs text-gray-500">{{ $schedules->count() }} jadwal aktif</p>
+                    <p class="text-xs text-gray-500">{{ $totalSchedules }} jadwal aktif</p>
                 </div>
             </div>
             <a href="/admin/schedules/create" class="btn-gradient !py-2 !px-4 text-sm inline-flex items-center gap-1.5 no-underline">
@@ -186,7 +186,7 @@
                 </div>
                 <div>
                     <h3 class="text-gray-900 font-semibold">Menunggu Konfirmasi</h3>
-                    <p class="text-xs text-gray-500">{{ $pendingTransactions->count() }} transaksi perlu dikonfirmasi</p>
+                    <p class="text-xs text-gray-500">{{ $totalPendingTransactions }} transaksi perlu dikonfirmasi</p>
                 </div>
             </div>
             <a href="{{ route('admin.transactions.index') }}" class="text-sm text-blue-600 hover:text-blue-800 font-medium no-underline inline-flex items-center gap-1">
@@ -320,7 +320,7 @@
                 </div>
                 <div>
                     <h3 class="text-gray-900 font-semibold">Riwayat Transaksi</h3>
-                    <p class="text-xs text-gray-500">{{ $bookings->count() }} transaksi dari semua user</p>
+                    <p class="text-xs text-gray-500">{{ $totalBookings }} transaksi dari semua user</p>
                 </div>
             </div>
         </div>

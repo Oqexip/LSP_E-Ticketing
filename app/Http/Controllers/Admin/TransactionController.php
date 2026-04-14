@@ -11,11 +11,39 @@ class TransactionController extends Controller
     // Menampilkan daftar semua transaksi
     public function index()
     {
-        $transactions = Transaction::with(['booking.user', 'booking.schedule'])
-            ->latest()
-            ->paginate(10);
+        $totalPending = Transaction::where('status', 'Pending')->count();
+        $totalLunas = Transaction::where('status', 'Lunas')->count();
+        $totalGagal = Transaction::where('status', 'Gagal')->count();
+        $totalTransactionsCount = Transaction::count();
 
-        return view('admin.transactions.index', compact('transactions'));
+        $sort = request('sort', 'waktu');
+        $order = request('order', 'desc');
+
+        $query = Transaction::with(['booking.user', 'booking.schedule'])
+            ->leftJoin('bookings', 'transactions.booking_id', '=', 'bookings.id')
+            ->leftJoin('users', 'bookings.user_id', '=', 'users.id')
+            ->leftJoin('schedules', 'bookings.schedule_id', '=', 'schedules.id')
+            ->select('transactions.*');
+
+        if ($sort === 'id') {
+            $query->orderBy('transactions.id', $order);
+        } elseif ($sort === 'pemesan') {
+            $query->orderBy('users.name', $order);
+        } elseif ($sort === 'penerbangan') {
+            $query->orderBy('schedules.plane_name', $order);
+        } elseif ($sort === 'metode') {
+            $query->orderBy('transactions.payment_method', $order);
+        } elseif ($sort === 'jumlah') {
+            $query->orderBy('transactions.amount', $order);
+        } elseif ($sort === 'status') {
+            $query->orderBy('transactions.status', $order);
+        } else {
+            $query->orderBy('transactions.created_at', $order);
+        }
+
+        $transactions = $query->paginate(10)->withQueryString();
+
+        return view('admin.transactions.index', compact('transactions', 'totalPending', 'totalLunas', 'totalGagal', 'totalTransactionsCount'));
     }
 
     // Konfirmasi transaksi (status → Lunas)

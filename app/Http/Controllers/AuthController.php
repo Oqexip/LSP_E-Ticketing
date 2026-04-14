@@ -54,6 +54,18 @@ class AuthController extends Controller
     public function dashboard()
     {
         if (Auth::user()->role == 'admin') {
+            $totalSchedules = Schedule::count();
+            $totalBookings = Booking::count();
+            $totalRevenue = Transaction::where('transactions.status', 'Lunas')
+                ->join('bookings', 'transactions.booking_id', '=', 'bookings.id')
+                ->sum('bookings.total_price');
+            $totalSeatsSold = Transaction::where('transactions.status', 'Lunas')
+                ->join('bookings', 'transactions.booking_id', '=', 'bookings.id')
+                ->sum('bookings.total_seats');
+            $totalPendingTransactions = Transaction::where('status', 'Pending')
+                ->whereNotNull('payment_proof')
+                ->count();
+
             $schedules = Schedule::latest()->paginate(5, ['*'], 'sched_page');
             $bookings = Booking::with(['user', 'schedule'])->latest()->paginate(5, ['*'], 'book_page');
             $pendingTransactions = Transaction::with(['booking.user', 'booking.schedule'])
@@ -61,7 +73,7 @@ class AuthController extends Controller
                 ->whereNotNull('payment_proof')
                 ->latest()
                 ->paginate(5, ['*'], 'pend_page');
-            return view('admin.dashboard', compact('schedules', 'bookings', 'pendingTransactions'));
+            return view('admin.dashboard', compact('schedules', 'bookings', 'pendingTransactions', 'totalSchedules', 'totalBookings', 'totalRevenue', 'totalSeatsSold', 'totalPendingTransactions'));
         }
 
         // Jika user, kirim data jadwal untuk dipesan
