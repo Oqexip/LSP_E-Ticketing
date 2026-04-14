@@ -10,8 +10,13 @@ use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\PasswordResetController;
 use Illuminate\Support\Facades\Route;
 
+// Landing Page
+Route::get('/', function () {
+    return view('landing');
+})->name('home');
+
 // Guest: Login & Register
-Route::get('/', [AuthController::class, 'login'])->name('login');
+Route::get('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/login', [AuthController::class, 'postLogin'])->name('login.post');
 Route::get('/register', [AuthController::class, 'register'])->name('register');
 Route::post('/register', [AuthController::class, 'postRegister'])->name('register.post');
