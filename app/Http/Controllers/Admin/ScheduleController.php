@@ -21,9 +21,11 @@ class ScheduleController extends Controller
             'plane_name' => 'required|string|max:255',
             'origin' => 'required|string|max:255',
             'destination' => 'required|string|max:255',
-            'departure' => 'required|date',
+            'departure' => 'required|date|after_or_equal:today',
             'price' => 'required|integer|min:0',
             'stock' => 'required|integer|min:0',
+        ], [
+            'departure.after_or_equal' => 'Tanggal keberangkatan tidak boleh kurang dari hari ini.'
         ]);
 
         Schedule::create($request->all());
@@ -44,9 +46,11 @@ class ScheduleController extends Controller
             'plane_name' => 'required|string|max:255',
             'origin' => 'required|string|max:255',
             'destination' => 'required|string|max:255',
-            'departure' => 'required|date',
+            'departure' => 'required|date|after_or_equal:today',
             'price' => 'required|integer|min:0',
             'stock' => 'required|integer|min:0',
+        ], [
+            'departure.after_or_equal' => 'Tanggal keberangkatan tidak boleh kurang dari hari ini.'
         ]);
 
         $schedule = Schedule::findOrFail($id);

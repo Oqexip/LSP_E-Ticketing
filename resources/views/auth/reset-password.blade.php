@@ -1,6 +1,6 @@
 @extends('layouts.auth')
 
-@section('title', 'Reset Password - E-Ticketing Easy')
+@section('title', 'Reset Password - Pinto Air')
 
 @section('content')
     <div class="text-center mb-6">

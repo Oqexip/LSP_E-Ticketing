@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Pembayaran - E-Ticketing Easy')
+@section('title', 'Pembayaran - Pinto Air')
 @section('page-title', 'Pembayaran')
 @section('page-subtitle', 'Selesaikan pembayaran untuk pesanan Anda')
 

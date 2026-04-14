@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Edit Jadwal - E-Ticketing Easy')
+@section('title', 'Edit Jadwal - Pinto Air')
 @section('page-title', 'Edit Jadwal')
 @section('page-subtitle', 'Perbarui data jadwal penerbangan')
 
@@ -55,8 +55,11 @@
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-2">Waktu Keberangkatan</label>
                     <input type="datetime-local" name="departure"
-                        value="{{ date('Y-m-d\TH:i', strtotime($schedule->departure)) }}" required
-                        class="input-admin">
+                        value="{{ date('Y-m-d\TH:i', strtotime($schedule->departure)) }}" required min="{{ now()->format('Y-m-d\TH:i') }}"
+                        class="input-admin @error('departure') border-red-500 @enderror">
+                    @error('departure')
+                        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                    @enderror
                 </div>
 
                 {{-- Price & Stock --}}

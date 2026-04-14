@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Laporan - E-Ticketing Easy')
+@section('title', 'Laporan - Pinto Air')
 @section('page-title', 'Laporan & Analitik')
 @section('page-subtitle', 'Pantau performa bisnis dan statistik transaksi')
 
@@ -135,7 +135,7 @@
                 </div>
                 <div>
                     <h3 class="text-gray-900 font-semibold">Grafik Pendapatan</h3>
-                    <p class="text-xs text-gray-500">Pendapatan harian (transaksi lunas)</p>
+                    <p class="text-xs text-gray-500">Pendapatan harian</p>
                 </div>
             </div>
             <div class="h-[280px] relative">
