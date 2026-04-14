@@ -105,7 +105,7 @@
                     </thead>
                     <tbody>
                         @foreach ($bookings as $b)
-                            <tr>
+                            <tr onclick="window.location='{{ route('admin.bookings.show', $b->id) }}'" class="cursor-pointer hover:bg-blue-50/50 transition-colors">
                                 <td>
                                     <span class="text-xs font-mono text-gray-500">#{{ $b->id }}</span>
                                 </td>

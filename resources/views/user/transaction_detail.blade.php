@@ -136,7 +136,7 @@
             {{-- Payment Info: QR Codes & Bank Accounts (shown when pending and no proof yet) --}}
             @if($transaction->status === 'Pending' && !$transaction->payment_proof)
                 {{-- E-Wallet QR Codes --}}
-                <div class="glass-card p-6">
+                <div id="ewallet-section" class="glass-card p-6 hidden">
                     <div class="flex items-center gap-3 mb-5">
                         <div class="w-10 h-10 rounded-xl bg-indigo-50 flex items-center justify-center">
                             <svg class="w-5 h-5 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -197,7 +197,7 @@
                 </div>
 
                 {{-- Bank Transfer Info --}}
-                <div class="glass-card p-6">
+                <div id="bank-section" class="glass-card p-6 hidden">
                     <div class="flex items-center gap-3 mb-5">
                         <div class="w-10 h-10 rounded-xl bg-amber-50 flex items-center justify-center">
                             <svg class="w-5 h-5 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -543,14 +543,22 @@
     function updatePaymentInfo() {
         const select = document.getElementById('payment_method_select');
         const infoDiv = document.getElementById('selected-payment-info');
+        const ewalletSection = document.getElementById('ewallet-section');
+        const bankSection = document.getElementById('bank-section');
+        
         const method = select.value;
         const info = paymentInfo[method];
+
+        // Hide both sections initially if they exist
+        if (ewalletSection) ewalletSection.classList.add('hidden');
+        if (bankSection) bankSection.classList.add('hidden');
 
         if (!info) { infoDiv.classList.add('hidden'); return; }
 
         infoDiv.classList.remove('hidden');
 
         if (info.type === 'bank') {
+            if (bankSection) bankSection.classList.remove('hidden');
             infoDiv.innerHTML = `
                 <div class="p-3 rounded-xl bg-blue-50 border border-blue-100">
                     <div class="flex items-center gap-2 mb-1">
@@ -564,6 +572,7 @@
                 </div>
             `;
         } else {
+            if (ewalletSection) ewalletSection.classList.remove('hidden');
             infoDiv.innerHTML = `
                 <div class="p-3 rounded-xl border border-gray-100" style="background: ${info.color}10">
                     <div class="flex items-center gap-2">

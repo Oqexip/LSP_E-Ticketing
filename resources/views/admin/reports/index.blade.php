@@ -286,8 +286,18 @@
                 </div>
                 <div>
                     <h3 class="text-gray-900 font-semibold">Transaksi Terbaru</h3>
-                    <p class="text-xs text-gray-500">10 transaksi terakhir dalam periode</p>
+                    <p class="text-xs text-gray-500">Daftar transaksi dalam periode</p>
                 </div>
+            </div>
+            
+            <div class="flex items-center gap-2">
+                <label for="per_page" class="text-sm font-medium text-gray-500">Tampilkan:</label>
+                <select id="per_page" class="input-admin py-1.5 pl-3 pr-8 text-sm">
+                    @php $currentPerPage = request('per_page', 10); @endphp
+                    @foreach([5, 10, 20, 50, 100] as $limit)
+                        <option value="{{ request()->fullUrlWithQuery(['per_page' => $limit]) }}" {{ $currentPerPage == $limit ? 'selected' : '' }}>{{ $limit }}</option>
+                    @endforeach
+                </select>
             </div>
         </div>
 
@@ -497,6 +507,32 @@
             }
         }
     });
+    function updateTableSection(url, tableSection) {
+        tableSection.style.opacity = '0.5';
+        tableSection.style.pointerEvents = 'none';
+        tableSection.style.transition = 'opacity 0.2s';
+
+        fetch(url, { headers: { 'X-Requested-With': 'XMLHttpRequest' } })
+            .then(res => res.text())
+            .then(html => {
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(html, 'text/html');
+                const newSection = doc.getElementById('recent-transactions-section');
+                
+                if (newSection) {
+                    tableSection.innerHTML = newSection.innerHTML;
+                }
+                tableSection.style.opacity = '1';
+                tableSection.style.pointerEvents = 'auto';
+                
+                window.history.pushState({}, '', url);
+            })
+            .catch(err => {
+                console.error('AJAX load failed:', err);
+                window.location.href = url; // fallback
+            });
+    }
+
     // AJAX Table Sorting and Pagination
     document.addEventListener('click', function(e) {
         const tableSection = document.getElementById('recent-transactions-section');
@@ -505,31 +541,16 @@
         
         if (link && tableSection) {
             e.preventDefault();
-            const url = link.href;
-            
-            tableSection.style.opacity = '0.5';
-            tableSection.style.pointerEvents = 'none';
-            tableSection.style.transition = 'opacity 0.2s';
+            updateTableSection(link.href, tableSection);
+        }
+    });
 
-            fetch(url, { headers: { 'X-Requested-With': 'XMLHttpRequest' } })
-                .then(res => res.text())
-                .then(html => {
-                    const parser = new DOMParser();
-                    const doc = parser.parseFromString(html, 'text/html');
-                    const newSection = doc.getElementById('recent-transactions-section');
-                    
-                    if (newSection) {
-                        tableSection.innerHTML = newSection.innerHTML;
-                    }
-                    tableSection.style.opacity = '1';
-                    tableSection.style.pointerEvents = 'auto';
-                    
-                    window.history.pushState({}, '', url);
-                })
-                .catch(err => {
-                    console.error('AJAX load failed:', err);
-                    window.location.href = url; // fallback
-                });
+    // AJAX Table Per Page change
+    document.addEventListener('change', function(e) {
+        const tableSection = document.getElementById('recent-transactions-section');
+        const select = e.target.closest('#per_page');
+        if (select && tableSection) {
+            updateTableSection(select.value, tableSection);
         }
     });
 </script>

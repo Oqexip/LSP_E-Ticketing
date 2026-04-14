@@ -116,7 +116,8 @@ class ReportController extends Controller
             $recentTransactionsQuery->orderBy('transactions.created_at', $order);
         }
 
-        $recentTransactions = $recentTransactionsQuery->paginate(10)->withQueryString();
+        $perPage = $request->input('per_page', 10);
+        $recentTransactions = $recentTransactionsQuery->paginate($perPage)->withQueryString();
 
         return view('admin.reports.index', compact(
             'startDate',

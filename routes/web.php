@@ -47,10 +47,12 @@ Route::middleware('auth')->group(function () {
     Route::post('/admin/schedules/update/{id}', [AdminScheduleController::class, 'update']);
     Route::get('/admin/schedules/delete/{id}', [AdminScheduleController::class, 'destroy']);
     
-    Route::get('/admin/bookings', [AdminBookingController::class, 'index']);
+    Route::get('/admin/bookings', [AdminBookingController::class, 'index'])->name('admin.bookings.index');
+    Route::get('/admin/bookings/{id}', [AdminBookingController::class, 'show'])->name('admin.bookings.show');
 
     // Admin: Transaksi
     Route::get('/admin/transactions', [AdminTransactionController::class, 'index'])->name('admin.transactions.index');
+    Route::get('/admin/transactions/{id}', [AdminTransactionController::class, 'show'])->name('admin.transactions.show');
     Route::post('/admin/transactions/{id}/confirm', [AdminTransactionController::class, 'confirm'])->name('admin.transactions.confirm');
     Route::post('/admin/transactions/{id}/reject', [AdminTransactionController::class, 'reject'])->name('admin.transactions.reject');
 

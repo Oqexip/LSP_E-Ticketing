@@ -45,4 +45,11 @@ class BookingController extends Controller
 
         return view('admin.bookings.index', compact('bookings', 'totalBookingsCount', 'totalRevenue', 'totalSeatsSold'));
     }
+
+    // Melihat detail dari sebuah pemesanan
+    public function show($id)
+    {
+        $booking = Booking::with(['user', 'schedule', 'transaction'])->findOrFail($id);
+        return view('admin.bookings.show', compact('booking'));
+    }
 }

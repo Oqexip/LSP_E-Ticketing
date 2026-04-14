@@ -46,6 +46,13 @@ class TransactionController extends Controller
         return view('admin.transactions.index', compact('transactions', 'totalPending', 'totalLunas', 'totalGagal', 'totalTransactionsCount'));
     }
 
+    // Menampilkan detail transaksi
+    public function show($id)
+    {
+        $transaction = Transaction::with(['booking.user', 'booking.schedule'])->findOrFail($id);
+        return view('admin.transactions.show', compact('transaction'));
+    }
+
     // Konfirmasi transaksi (status → Lunas)
     public function confirm($id)
     {
